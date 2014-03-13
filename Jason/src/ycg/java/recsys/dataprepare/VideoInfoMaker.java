@@ -1,8 +1,9 @@
-package org.imc.ocnrecsys.cleaner;
+package ycg.java.recsys.dataprepare;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,11 +13,13 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 
-public class CatalogDataCleaner {
+public class VideoInfoMaker {
+	
+	private static final String HOME = "E:\\Dataset\\Ocn";
 	
 	public void run() {
-		List<String> filenameCollector = new ArrayList<String>();
-		collectAllFiles(Config.HOME + "\\Catalog", filenameCollector);
+		List<String> catalogFilenames = loadCatalogFilenames();
+		HashMap<String, Integer> assetIDMap = loadAssetTo
 		try {
 			File videoFile = new File(Config.TMP_DIR + "\\catalog\\video.txt");
 			PrintWriter printWriter = new PrintWriter(videoFile);
@@ -31,7 +34,13 @@ public class CatalogDataCleaner {
 		}
 	}
 	
-    private static void collectAllFiles(String root, List<String> filenames) { 
+    private List<String> loadCatalogFilenames() {
+		List<String> filenames = new ArrayList<String>();
+		Scanner scanner = new Scanner(HOME + "\\raw\\catalog_filelist.txt");
+		return filenames;
+	}
+
+	private static void collectAllFiles(String root, List<String> filenames) { 
         File dir = new File(root); 
         File[] files = dir.listFiles(); 
         if (files == null) { 
@@ -84,8 +93,7 @@ public class CatalogDataCleaner {
     }
     
 	public static void main(String[] args) {
-		CatalogDataCleaner cdc = new CatalogDataCleaner();
-		cdc.run();
+		new VideoInfoMaker().run();
 	}
 
 }
